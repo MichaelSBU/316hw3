@@ -86,9 +86,6 @@ getPlaylistPairs = async (req, res) => {
         }
     }).catch(err => console.log(err))
 }
-updatePlaylist = async (req, res) => {
-    
-}
 deletePlaylist = async (req, res) => {
     
 }
