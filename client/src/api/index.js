@@ -11,6 +11,7 @@
 */
 
 import axios from 'axios'
+import ListCard from '../components/ListCard'
 const api = axios.create({
     baseURL: 'http://localhost:4000/api',
 })
@@ -21,14 +22,16 @@ const api = axios.create({
 // WORK, AND SOME REQUIRE DATA, WHICH WE CALL THE payload, FOR WHEN
 // WE NEED TO PUT THINGS INTO THE DATABASE OR IF WE HAVE SOME
 // CUSTOM FILTERS FOR QUERIES
+export const createPlaylist = (num) => api.post('/playlist', {name: ("Untitled " + num), songs: []});
 export const getAllPlaylists = () => api.get(`/playlists`)
-export const getPlaylistPairs = () => api.get('playlistpairs')
+export const getPlaylistPairs = () => api.get('playlistpairs ')
 export const getPlaylistById = (id) => api.get(`/playlist/${id}`)
 
 const apis = {
+    createPlaylist,
     getAllPlaylists,
     getPlaylistPairs,
-    getPlaylistById,
+    getPlaylistById
 }
 
 export default apis

@@ -62,7 +62,7 @@ export const useGlobalStore = () => {
                 return setStore({
                     idNamePairs: store.idNamePairs,
                     currentList: payload,
-                    newListCounter: store.newListCounter + 1,
+                    newListCounter: store.newListCounter,
                     listNameActive: false
                 })
             }
@@ -109,6 +109,24 @@ export const useGlobalStore = () => {
     // THESE ARE THE FUNCTIONS THAT WILL UPDATE OUR STORE AND
     // DRIVE THE STATE OF THE APPLICATION. WE'LL CALL THESE IN 
     // RESPONSE TO EVENTS INSIDE OUR COMPONENTS.
+
+
+    store.createNewList = function(){
+        async function asyncCreateNewList(){
+            let response = await api.createPlaylist(store.idNamePairs.length);
+            if(response.data.success){
+                let playlist = response.data.playlist;
+                console.log(playlist);
+                storeReducer({
+                    type: GlobalStoreActionType.CREATE_NEW_LIST,
+                    payload: playlist
+                });
+                store.loadIdNamePairs();
+            }
+        }
+        console.log("creating new playlist");
+        asyncCreateNewList();
+    }
 
     // THIS FUNCTION PROCESSES CHANGING A LIST NAME
     store.changeListName = function (id, newName) {
