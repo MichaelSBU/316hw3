@@ -2,6 +2,7 @@ import Banner from './Banner'
 import DeleteListModal from './DeleteListModal'
 import DeleteSongModal from './DeleteSongModal'
 import EditToolbar from './EditToolbar'
+import EditSongModal from './EditSongModal'
 import ListCard from './ListCard'
 import ListSelector from './ListSelector'
 import SongCard from './SongCard'
@@ -14,9 +15,10 @@ import PlaylistCards from './PlaylistCards'
     @author McKilla Gorilla
 */
 export {    Banner, 
-            EditToolbar,
             DeleteListModal,
             DeleteSongModal,
+            EditToolbar,
+            EditSongModal,
             ListCard, 
             ListSelector, 
             SongCard,

@@ -9,7 +9,7 @@ const DeleteSongModal = () => {
         store.deleteSong(store.markedSongId);
     }
     function handleCancelDeletion() {
-        store.hideDeleteListModal();
+        store.hideDeleteSongModal();
     }
 
     return (

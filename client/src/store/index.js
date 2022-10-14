@@ -274,32 +274,29 @@ export const useGlobalStore = () => {
     }
 
     //FUNCTIONS INVOLVED IN UPDATING PLAYLIST (adding, editing, removing, moving songs)
+
+
     //ADDING
     store.addSong = function () {
-        let id = store.currentList._id;
-        async function asyncRetrieveList() {
-            let response = await api.getPlaylistById(id);
-            if (response.data.success) {
-                let playlist = response.data.playlist;
-                let songs = playlist.songs;
-                let name = playlist.name;
-                songs.push({title: "Untitled", artist: "Unknown", youTubeId: "dQw4w9WgXcQ"})
-                    async function asyncAddSong(){
-                        let response = await api.updatePlaylist(id, name, songs);
-                            if(response.data.success){
-                                storeReducer({
-                                    type: GlobalStoreActionType.SET_CURRENT_LIST,
-                                    payload: playlist
-                                })
-                            }
-                    }
-                    console.log("adding song to playlist");
-                    asyncAddSong();
-                    console.log("added song to playlist");
-                }
+        async function asyncAddSong() {
+            let playlist = store.currentList;
+            let songs = playlist.songs;
+            let name = playlist.name;
+            songs.push({title: "Untitled", artist: "Unknown", youTubeId: "dQw4w9WgXcQ"})
+            let response = await api.updatePlaylist(store.currentList._id, name, songs);
+            if(response.data.success){
+                storeReducer({
+                    type: GlobalStoreActionType.SET_CURRENT_LIST,
+                    payload: playlist
+                })
             }
-        asyncRetrieveList();
+        }
+        console.log("adding song to playlist");
+        asyncAddSong();
+        console.log("added song to playlist");
     }
+
+
     //DELETING
     store.showDeleteSongModal = function (index){
         let modal = document.getElementById("remove-song-modal");
@@ -310,35 +307,68 @@ export const useGlobalStore = () => {
         });
     }
 
-    store.hideDeleteListModal = function () {
+    store.hideDeleteSongModal = function () {
         let modal = document.getElementById("remove-song-modal");
         modal.classList.remove("is-visible");
     }
+
     store.deleteSong = function (index) {
-        let id = store.currentList._id;
-        async function asyncRetrieveList() {
-            let response = await api.getPlaylistById(id);
-            if (response.data.success) {
-                let playlist = response.data.playlist;
-                let songs = playlist.songs;
-                let name = playlist.name;
-                songs.splice(index,1);
-                    async function asyncAddSong(){
-                        let response = await api.updatePlaylist(id, name, songs);
-                            if(response.data.success){
-                                storeReducer({
-                                    type: GlobalStoreActionType.SET_CURRENT_LIST,
-                                    payload: playlist
-                                })
-                            }
-                    }
-                    console.log("deleting song " + index  + "from playlist");
-                    asyncAddSong();
-                    console.log("deleted song " + index + " from playlist");
-                }
+        let playlist = store.currentList;
+        let songs = playlist.songs;
+        let name = playlist.name;
+        songs.splice(index,1);
+        async function asyncDeleteSong() {
+            let response = await api.updatePlaylist(store.currentList._id, name, songs);
+            if(response.data.success){
+                storeReducer({
+                    type: GlobalStoreActionType.SET_CURRENT_LIST,
+                    payload: playlist
+                })
+            store.hideDeleteSongModal();
             }
-        asyncRetrieveList();
+        }
+        console.log("deleting song " + index  + " from playlist");
+        asyncDeleteSong();
+        console.log("deleted song " + index + " from playlist");
     }
+
+    
+    //EDITING
+    store.showEditSongModal = function (index){
+        let modal = document.getElementById("edit-song-modal");
+        modal.classList.add("is-visible");
+        storeReducer({
+            type: GlobalStoreActionType.MARK_SONG,
+            payload: index
+        });
+    }
+
+    store.hideEditSongModal = function () {
+        let modal = document.getElementById("edit-song-modal");
+        modal.classList.remove("is-visible");
+    }
+
+    store.editSong = function (index, newTitle, newArtist, newYouTubeId) {
+        let playlist = store.currentList;
+        let songs = playlist.songs;
+        let name = playlist.name;
+        songs[index] = {title: newTitle, artist: newArtist, youTubeId: newYouTubeId};
+        async function asyncEditSong() {
+            let response = await api.updatePlaylist(store.currentList._id, name, songs);
+            if(response.data.success){
+                storeReducer({
+                    type: GlobalStoreActionType.SET_CURRENT_LIST,
+                    payload: playlist
+                })
+            store.hideEditSongModal();
+            }
+        }
+        console.log("editing " + index);
+        asyncEditSong();
+        console.log("edited song " + index);
+    }
+
+
 
     // THIS GIVES OUR STORE AND ITS REDUCER TO ANY COMPONENT THAT NEEDS IT
     return { store, storeReducer };

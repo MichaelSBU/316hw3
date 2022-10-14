@@ -10,13 +10,21 @@ function SongCard(props) {
     function handleDeleteButtonPress(){
         store.showDeleteSongModal(index);
     }
+    
+    function handleClick(event){
+        // DOUBLE CLICK IS FOR SONG EDITING
+        if (event.detail === 2) {
+            store.showEditSongModal(index);
+        }
+    }
 
     return (
         <div
             key={index}
             id={'song-' + index + '-card'}
             className={cardClass}
-        >
+            onClick={handleClick}
+        >   
             {index + 1}.
             <a
                 id={'song-' + index + '-link'}
