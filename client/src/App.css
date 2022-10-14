@@ -65,12 +65,13 @@ body {
 }
 
 #playlist-selector, #playlist-cards {
-  overflow: scroll;
   grid-column: 1 / 3;
   grid-row: 2 / 3;
   font-size: 36pt;
   font-weight: bold;
-  display:grid;
+  display: flex;
+  flex-direction: column;
+  overflow: scroll;
   background-color: var(--swatch-primary);
 }
 
@@ -192,6 +193,58 @@ input {
   border-width: 5px;
   border-radius: 10px;
   border-style: groove;
+}
+
+.modal-root {
+  position: relative;
+  max-width: 1200vw;
+  max-height: 600vh;
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+  background: var(--swatch-complement);
+  cursor: default;
+  border-width: 2px;
+  border-color: black;
+  border-style: solid;
+  box-shadow: 5px 10px #888888;
+}
+
+.modal-root > * {
+  padding: 1rem;
+}
+
+.modal-north {
+  font-size:32pt;
+  font-weight: bold;
+  background-color: #669966;
+  color:white;
+}
+
+.modal-center {
+  display: grid;
+  grid-template-columns: 30% 65%;
+  grid-template-rows: 33% 33% 33%;
+  gap: 10px 20px;
+  font-size: 48pt;
+}
+
+span {
+  font-weight: bold;
+  font-style: italic;
+}
+
+.modal-south {
+  display:flex;
+  flex-direction: row;
+  background-color: lightgray;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-center-content {
+  grid-column: 1 / 3;
+  grid-row: 1 / 4;
 }
 
 .modal-dialog > * {
