@@ -12,7 +12,8 @@ const EditSongModal = () => {
     let newYouTubeId = song.youTubeId;
 
     function handleConfirmEditSong(){
-        store.editSong(store.markedSongId, newTitle, newArtist, newYouTubeId);
+        console.log("adding edit song transaction");
+        store.addEditSongTransaction(store.markedSongId, newTitle, newArtist, newYouTubeId);
     }
 
     function handleCancelEditSongModal(){

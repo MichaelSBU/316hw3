@@ -6,7 +6,8 @@ const DeleteSongModal = () => {
     const history = useHistory();
 
     function handleConfirmDeletion() {
-        store.deleteSong(store.markedSongId);
+        console.log("vndofibdibinifbfdbffdbdfbdbdfbf");
+        store.addDeleteSongTransaction(store.markedSongId);
     }
     function handleCancelDeletion() {
         store.hideDeleteSongModal();

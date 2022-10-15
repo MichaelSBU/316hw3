@@ -15,7 +15,7 @@ function EditToolbar() {
 
     function handleAddSong(){
         if(store.currentList !== null){
-            store.addSong();
+            store.addCreateSongTransaction(store.idNamePairs.length+1, "Utitled", "Unknown", "dQw4w9WgXcQ");
         }
     }
 

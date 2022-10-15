@@ -1,6 +1,10 @@
 import { createContext, useState } from 'react'
 import jsTPS from '../common/jsTPS'
 import api from '../api'
+import AddSong_Transaction from '../transactions/addSongTransaction.js'
+import MoveSong_Transaction from '../transactions/moveSongTransaction.js';
+import DeleteSong_Transaction from '../transactions/deleteSongTransaction.js';
+import EditSong_Transaction from '../transactions/editSongTransaction.js';
 export const GlobalStoreContext = createContext({});
 /*
     This is our global data store. Note that it uses the Flux design pattern,
@@ -183,6 +187,7 @@ export const useGlobalStore = () => {
 
     // THIS FUNCTION PROCESSES CLOSING THE CURRENTLY LOADED LIST
     store.closeCurrentList = function () {
+        tps.clearAllTransactions();
         storeReducer({
             type: GlobalStoreActionType.CLOSE_CURRENT_LIST,
             payload: {}
@@ -227,11 +232,43 @@ export const useGlobalStore = () => {
     store.getPlaylistSize = function() {
         return store.currentList.songs.length;
     }
+
+     // THIS FUNCDTION ADDS A CreateSong_Transaction TO THE TRANSACTION STACK
+     store.addCreateSongTransaction = (index, title, artist, youTubeId) => {
+        let transaction = new AddSong_Transaction(store, title, artist, youTubeId, index);
+        tps.addTransaction(transaction);
+    }
+    // THIS FUNCTION ADDS A MoveSong_Transaction TO THE TRANSACTION STACK
+    store.addMoveSongTransaction = (start, end) => {
+        console.log("adding move song trans");
+        let transaction = new MoveSong_Transaction(store, start, end);
+        tps.addTransaction(transaction);
+    }
+    // THIS FUNCTION ADDS A RemoveSong_Transaction TO THE TRANSACTION STACK
+    store.addDeleteSongTransaction = (index) => {
+        let song = store.currentList.songs[index];
+        let transaction = new DeleteSong_Transaction(store, song.title, song.artist, song.youTubeId, index);
+        console.log(transaction);
+        tps.addTransaction(transaction);
+    }
+    // THIS FUNCTION ADDS AN UpdateSong_Transaction TO THE TRANSACTION STACK
+    store.addEditSongTransaction = (index, newTitle, newArtist, newYouTubeId) => {
+        // GET THE CURRENT TEXT
+        let song = store.currentList.songs[index];
+        let transaction = new EditSong_Transaction(store, newTitle, newArtist, newYouTubeId, song.title, song.artist, song.youTubeId, index);
+        tps.addTransaction(transaction);
+    }
+
     store.undo = function () {
-        tps.undoTransaction();
+        if(tps.hasTransactionToUndo){
+            console.log(tps);
+            tps.undoTransaction();
+        }
     }
     store.redo = function () {
-        tps.doTransaction();
+        if(tps.hasTransactionToRedo){
+            tps.doTransaction();
+        }
     }
 
     // THIS FUNCTION ENABLES THE PROCESS OF EDITING A LIST NAME
@@ -277,12 +314,12 @@ export const useGlobalStore = () => {
 
 
     //ADDING
-    store.addSong = function () {
+    store.addSong = function (SongTitle, SongArtist, SongYouTubeId, index) {
         async function asyncAddSong() {
             let playlist = store.currentList;
             let songs = playlist.songs;
             let name = playlist.name;
-            songs.push({title: "Untitled", artist: "Unknown", youTubeId: "dQw4w9WgXcQ"})
+            songs.splice(index, 0, {title: SongTitle, artist: SongArtist, youTubeId: SongYouTubeId});
             let response = await api.updatePlaylist(store.currentList._id, name, songs);
             if(response.data.success){
                 storeReducer({
@@ -348,7 +385,7 @@ export const useGlobalStore = () => {
         modal.classList.remove("is-visible");
     }
 
-    store.editSong = function (index, newTitle, newArtist, newYouTubeId) {
+    store.editSong = function (newTitle, newArtist, newYouTubeId, index) {
         let playlist = store.currentList;
         let songs = playlist.songs;
         let name = playlist.name;
