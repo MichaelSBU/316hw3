@@ -334,7 +334,7 @@ export const useGlobalStore = () => {
 
     
     //EDITING
-    store.showEditSongModal = function (index){
+    store.showEditSongModal = function(index){
         let modal = document.getElementById("edit-song-modal");
         modal.classList.add("is-visible");
         storeReducer({
@@ -366,6 +366,40 @@ export const useGlobalStore = () => {
         console.log("editing " + index);
         asyncEditSong();
         console.log("edited song " + index);
+    }
+
+    //MOVE
+    store.moveSong = function(start, end){
+        let playlist = store.currentList;
+        let songs = playlist.songs;
+        let name = playlist.name;
+        // WE NEED TO UPDATE THE STATE FOR THE APP
+        if (start < end) {
+            let temp = songs[start];
+            for (let i = start; i < end; i++) {
+                songs[i] = songs[i + 1];
+            }
+            songs[end] = temp;
+        }
+        else if (start > end) {
+            let temp = songs[start];
+            for (let i = start; i > end; i--) {
+                songs[i] = songs[i - 1];
+            }
+            songs[end] = temp;
+        }
+        async function asyncMoveSong() {
+            let response = await api.updatePlaylist(store.currentList._id, name, songs);
+            if(response.data.success){
+                storeReducer({
+                    type: GlobalStoreActionType.SET_CURRENT_LIST,
+                    payload: playlist
+                })
+            }
+        }
+        console.log("moving song at position" + start + " to position" + end);
+        asyncMoveSong();
+        console.log("move completed!");
     }
 
 
