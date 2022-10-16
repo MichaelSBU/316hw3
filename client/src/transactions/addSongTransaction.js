@@ -11,13 +11,11 @@ export default class AddSong_Transaction extends jsTPS_Transaction {
         this.youTubeId = initYouTubeId;
         this.songIndex = initSongIndex;
     }
-
     doTransaction() {
         this.store.addSong(this.title, this.artist, this.youTubeId, this.songIndex);
     }
     
     undoTransaction() {
-        console.log(this.songIndex);
         this.store.deleteSong(this.songIndex);
     }
 }

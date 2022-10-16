@@ -31,9 +31,9 @@ function ListCard(props) {
         toggleEdit();
     }
 
-    function deletePlaylistButtonClick(event) {
+    function handleDeletePlaylistButtonClick(event) {
         event.stopPropagation();
-        store.showDeleteListModal(idNamePair._id);
+        store.showDeleteListModal(idNamePair);
     }
 
     function toggleEdit() {
@@ -80,7 +80,7 @@ function ListCard(props) {
                 type="button"
                 id={"delete-list-" + idNamePair._id}
                 className="list-card-button"
-                onClick={deletePlaylistButtonClick}
+                onClick={handleDeletePlaylistButtonClick}
                 value={"\u2715"}
             />
             <input

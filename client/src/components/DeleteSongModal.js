@@ -5,13 +5,16 @@ const DeleteSongModal = () => {
     const { store } = useContext(GlobalStoreContext);
     const history = useHistory();
 
-    function handleConfirmDeletion() {
-        console.log("vndofibdibinifbfdbffdbdfbdbdfbf");
+    function handleConfirmDeletion(event) {
+        event.stopPropagation();
         store.addDeleteSongTransaction(store.markedSongId);
     }
-    function handleCancelDeletion() {
+    function handleCancelDeletion(event) {
+        event.stopPropagation();
         store.hideDeleteSongModal();
     }
+    
+    let songName = store.currentList === null || store.markedSongId === null ? "poo" : store.currentList.songs[store.markedSongId].title;
 
     return (
             <div
@@ -24,7 +27,7 @@ const DeleteSongModal = () => {
                     </div>
                     <div className="modal-center">
                         <div className="modal-center-content">
-                            Are you sure you wish to permanently remove this song from the playlist?
+                            Are you sure you wish to permanently remove {songName} from the playlist?
                         </div>
                     </div>
                     <div className="modal-south">

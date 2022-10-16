@@ -12,7 +12,6 @@ const EditSongModal = () => {
     let newYouTubeId = song.youTubeId;
 
     function handleConfirmEditSong(){
-        console.log("adding edit song transaction");
         store.addEditSongTransaction(store.markedSongId, newTitle, newArtist, newYouTubeId);
     }
 
@@ -47,11 +46,11 @@ const EditSongModal = () => {
                 id="edit-song-modal-content"
                 className="modal-center">
                 <div id="title-prompt" className="modal-prompt">Title:</div>
-                <input id="edit-song-modal-title-textfield" className='modal-textfield' type="text" defaultValue={song.title} onChange={handleUpdateTitle}/>
+                <input id="edit-song-modal-title-textfield" className='modal-textfield' type="text" onChange={handleUpdateTitle}/>
                 <div id="artist-prompt" className="modal-prompt">Artist:</div>
-                <input id="edit-song-modal-artist-textfield" className='modal-textfield' type="text" defaultValue={song.artist} onChange={handleUpdateArtist}/>
+                <input id="edit-song-modal-artist-textfield" className='modal-textfield' type="text" onChange={handleUpdateArtist}/>
                 <div id="you-tube-id-prompt" className="modal-prompt">YouTubeId:</div>
-                <input id="edit-song-modal-youTubeId-textfield" className='modal-textfield' type="text" defaultValue={song.youTubeId} onChange={handleUpdateYouTubeId}/>
+                <input id="edit-song-modal-youTubeId-textfield" className='modal-textfield' type="text" onChange={handleUpdateYouTubeId}/>
             </div>
             <div className="modal-south">
                 <input type="button" id="edit-song-confirm-button" className="modal-button" value='Confirm' onClick={handleConfirmEditSong} />

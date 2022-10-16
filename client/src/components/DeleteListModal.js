@@ -6,11 +6,13 @@ const DeleteListModal = () => {
     const history = useHistory();
 
     function handleConfirmDeletion() {
-        store.deletePlaylist(store.markedListId);
+        store.deletePlaylist(store.markedListId._id);
     }
     function handleCancelDeletion() {
         store.hideDeleteListModal();
     }
+
+    let name = store.markedListId === null ? "poo" : store.markedListId.name;
 
     return (
         <div 
@@ -23,7 +25,7 @@ const DeleteListModal = () => {
                     </div>
                     <div className="modal-center">
                         <div className="modal-center-content">
-                            Are you sure you wish to permanently delete the playlist?
+                            Are you sure you wish to permanently delete the {name} playlist?
                         </div>
                     </div>
                     <div className="modal-south">

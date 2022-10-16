@@ -11,7 +11,27 @@ function EditToolbar() {
     const { store } = useContext(GlobalStoreContext);
     const history = useHistory();
 
-    let enabledButtonClass = "playlister-button";
+    let canAddSong = true, canUndo = true, canRedo = true, canClose = true;
+    
+    if(store.currentList === null || store.modalOpen){
+        canAddSong = false;
+        canUndo = false;
+        canRedo = false;
+        canClose = false;
+    } 
+    if(!store.canUndo()){
+        canUndo = false;
+    }
+    if(!store.canRedo()){
+        canRedo = false;
+    }
+
+    let addSongButton = canAddSong ? "playlister-button" : "playlister-button-disabled";
+    let undoButton = canUndo ? "playlister-button" : "playlister-button-disabled";
+    let redoButton = canRedo ? "playlister-button" : "playlister-button-disabled";
+    let closePlaylistButton = canClose ? "playlister-button" : "playlister-button-disabled";
+
+
 
     function handleAddSong(){
         if(store.currentList !== null){
@@ -40,7 +60,7 @@ function EditToolbar() {
                 id='add-song-button'
                 disabled={editStatus}
                 value="+"
-                className={enabledButtonClass}
+                className={addSongButton}
                 onClick={handleAddSong}
             />
             <input
@@ -48,7 +68,7 @@ function EditToolbar() {
                 id='undo-button'
                 disabled={editStatus}
                 value="⟲"
-                className={enabledButtonClass}
+                className={undoButton}
                 onClick={handleUndo}
             />
             <input
@@ -56,7 +76,7 @@ function EditToolbar() {
                 id='redo-button'
                 disabled={editStatus}
                 value="⟳"
-                className={enabledButtonClass}
+                className={redoButton}
                 onClick={handleRedo}
             />
             <input
@@ -64,7 +84,7 @@ function EditToolbar() {
                 id='close-button'
                 disabled={editStatus}
                 value="&#x2715;"
-                className={enabledButtonClass}
+                className={closePlaylistButton}
                 onClick={handleClose}
             />
         </span>);

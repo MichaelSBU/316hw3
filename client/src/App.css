@@ -17,11 +17,13 @@
 }
 
 body {
-  background-color: var(--swatch-foundation);
+  background-color: var(--swatch-accent);
+  /*background-image: url('https://thumbs.dreamstime.com/z/music-notes-symbols-seamless-pattern-design-fully-editable-fill-background-color-music-notes-symbols-seamless-pattern-118273669.jpg')*/
 }
 
 #root {
   background-color: var(--swatch-primary);
+  /*background-image: url('https://pngimg.com/uploads/michael_jackson/small/michael_jackson_PNG49.png');*/
   font-family: "Lexend Exa";
   position: absolute;
   width: 80%;
@@ -60,7 +62,8 @@ body {
   grid-row: 1 / 2;
   flex-direction: row;
   overflow: auto;
-  background-color: var(--swatch-primary);
+  background-image: linear-gradient(to bottom,         
+  #b8b808, #636723);
   float:right;
 }
 
@@ -72,12 +75,13 @@ body {
   display: flex;
   flex-direction: column;
   overflow: scroll;
-  background-color: var(--swatch-primary);
+  height: 90%;
+  background-color: transparent;
 }
 
 .playlister-button, .playlister-button-disabled {
   font-size:36pt;
-  border-width: 0px;
+  border-width: 1px;
   float:left;
   color: black;
   cursor: pointer;
