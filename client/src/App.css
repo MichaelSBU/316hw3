@@ -18,18 +18,20 @@
 
 body {
   background-color: var(--swatch-accent);
-  /*background-image: url('https://thumbs.dreamstime.com/z/music-notes-symbols-seamless-pattern-design-fully-editable-fill-background-color-music-notes-symbols-seamless-pattern-118273669.jpg')*/
+  border-radius: 1000pt;
+  background-image: url('https://thumbs.dreamstime.com/z/music-notes-symbols-seamless-pattern-design-fully-editable-fill-background-color-music-notes-symbols-seamless-pattern-118273669.jpg')
 }
 
 #root {
   background-color: var(--swatch-primary);
-  /*background-image: url('https://pngimg.com/uploads/michael_jackson/small/michael_jackson_PNG49.png');*/
+  background-image: url('https://pngimg.com/uploads/michael_jackson/small/michael_jackson_PNG49.png');
   font-family: "Lexend Exa";
   position: absolute;
   width: 80%;
   left: 10%;
   height:90%;
   top: 5%;
+  border-radius: 10pt;
 }
 
 #app-root {
@@ -48,7 +50,7 @@ body {
   grid-column: 1 / 3;
   grid-row: 1 / 2;
   background-image: linear-gradient(to bottom,         
-  #b8b808, #636723);
+  #b8b808, #08b83d,  #080bb8,  #881414);
   color: white;
   font-size: 48pt;
   border-color: black;
@@ -62,9 +64,9 @@ body {
   grid-row: 1 / 2;
   flex-direction: row;
   overflow: auto;
-  background-image: linear-gradient(to bottom,         
-  #b8b808, #636723);
+  background-color: transparent;
   float:right;
+  border-radius: 10pt;
 }
 
 #playlist-selector, #playlist-cards {
@@ -77,6 +79,7 @@ body {
   overflow: scroll;
   height: 90%;
   background-color: transparent;
+  border-radius: 0pt;
 }
 
 .playlister-button, .playlister-button-disabled {
@@ -86,6 +89,7 @@ body {
   color: black;
   cursor: pointer;
   opacity: 100%;
+  border-radius: 10pt;
 }
 
 .playlister-button:hover {
@@ -109,6 +113,7 @@ body {
   align-items: center;
   justify-content: center;
   font-size: 36pt;
+  border-radius: 10pt;
 }
 
 #add-list-button {

@@ -12,7 +12,7 @@ function EditToolbar() {
     const history = useHistory();
 
     let canAddSong = true, canUndo = true, canRedo = true, canClose = true;
-    
+
     if(store.currentList === null || store.modalOpen){
         canAddSong = false;
         canUndo = false;
@@ -35,7 +35,7 @@ function EditToolbar() {
 
     function handleAddSong(){
         if(store.currentList !== null){
-            store.addCreateSongTransaction(store.idNamePairs.length+1, "Utitled", "Unknown", "dQw4w9WgXcQ");
+            store.addCreateSongTransaction(store.currentList.length+1, "Utitled", "Unknown", "dQw4w9WgXcQ");
         }
     }
 

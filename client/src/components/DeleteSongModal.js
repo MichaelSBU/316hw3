@@ -14,7 +14,11 @@ const DeleteSongModal = () => {
         store.hideDeleteSongModal();
     }
     
-    let songName = store.currentList === null || store.markedSongId === null ? "poo" : store.currentList.songs[store.markedSongId].title;
+    let songName = "poo";
+
+    if(store.currentList !== null && store.markedSongId !== null && store.currentList.songs[store.markedSongId] !== undefined && store.currentList.songs[store.markedSongId] !== undefined){
+        songName = store.currentList.songs[store.markedSongId].title;  
+    }
 
     return (
             <div

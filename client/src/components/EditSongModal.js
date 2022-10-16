@@ -5,7 +5,7 @@ const EditSongModal = () => {
     const { store } = useContext(GlobalStoreContext);
     const history = useHistory();
 
-    let song = store.currentList === null || store.markedSongId === null ? {title: "", artist: "", youTubeId: ""} : store.currentList.songs[store.markedSongId];
+    let song = store.currentList === null || store.markedSongId === null || store.currentList.songs[store.markedSongId] === null || store.currentList.songs[store.markedSongId] === undefined ? {title: "", artist: "", youTubeId: ""} : store.currentList.songs[store.markedSongId];
 
     let newTitle = song.title;
     let newArtist = song.artist;

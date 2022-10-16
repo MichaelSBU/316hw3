@@ -12,6 +12,7 @@ export default class AddSong_Transaction extends jsTPS_Transaction {
         this.songIndex = initSongIndex;
     }
     doTransaction() {
+        console.log(this.songIndex);
         this.store.addSong(this.title, this.artist, this.youTubeId, this.songIndex);
     }
     

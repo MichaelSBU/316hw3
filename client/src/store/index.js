@@ -65,7 +65,7 @@ export const useGlobalStore = () => {
                     idNamePairs: store.idNamePairs,
                     currentList: null,
                     listNameActive: false,
-                    markedListId: store.markedListId,
+                    markedListId: null,
                     markedSongId: null,
                     modalOpen: false
                 })
@@ -358,13 +358,12 @@ export const useGlobalStore = () => {
 
     //DELETING
     store.showDeleteSongModal = function (index){
-        let modal = document.getElementById("remove-song-modal");
-        modal.classList.add("is-visible");
-
         storeReducer({
             type: GlobalStoreActionType.MARK_SONG,
             payload: {id: index}
         });
+        let modal = document.getElementById("remove-song-modal");
+        modal.classList.add("is-visible");
     }
 
     store.hideDeleteSongModal = function () {
@@ -471,11 +470,8 @@ export const useGlobalStore = () => {
     //UNDO REDO USING KEYS
 
     function KeyPress(event) {
-        console.log("key pressed");
         if (!store.modalOpen && event.ctrlKey){
-            console.log("cntrlKey pressed");
             if(event.key === 'z'){
-                console.log("z pressed");
                 store.undo();
             } 
             if(event.key === 'y'){
