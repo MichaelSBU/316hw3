@@ -185,6 +185,7 @@ input {
   opacity: 0;
   transition: all 0.35s ease-in;
   font-family: var(--font-primary);
+  font-size: 20;
 }
 
 .modal.is-visible {
