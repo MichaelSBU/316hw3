@@ -29,11 +29,9 @@ const DeleteSongModal = () => {
                     <div className="modal-north">
                         Remove Song?
                     </div>
-                    <div className="modal-center">
                         <div className="modal-center-content">
                             Are you sure you wish to permanently remove {songName} from the playlist?
                         </div>
-                    </div>
                     <div className="modal-south">
                         <input type="button" id="remove-song-confirm-button" className="modal-button" onClick={handleConfirmDeletion} value='Confirm' />
                         <input type="button" id="remove-song-cancel-button" className="modal-button" onClick={handleCancelDeletion} value='Cancel' />

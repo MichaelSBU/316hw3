@@ -23,10 +23,8 @@ const DeleteListModal = () => {
                     <div className="modal-north">
                         Delete playlist?
                     </div>
-                    <div className="modal-center">
                         <div className="modal-center-content">
                             Are you sure you wish to permanently delete the {name} playlist?
-                        </div>
                     </div>
                     <div className="modal-south">
                         <input type="button" 

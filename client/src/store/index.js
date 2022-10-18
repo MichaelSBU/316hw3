@@ -167,7 +167,7 @@ export const useGlobalStore = () => {
                     type: GlobalStoreActionType.CREATE_NEW_LIST,
                     payload: playlist
                 });
-                store.loadIdNamePairs();
+                store.history.push("/playlist/" + playlist._id);
             }
         }
         asyncCreateNewList();
@@ -195,6 +195,7 @@ export const useGlobalStore = () => {
                                         playlist: playlist
                                     }
                                 });
+                                store.history.push("/playlist/" + playlist._id);
                             }
                         }
                         getListPairs(playlist);
